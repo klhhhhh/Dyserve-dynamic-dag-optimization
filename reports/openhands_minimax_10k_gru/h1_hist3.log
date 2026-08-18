@@ -1,0 +1,40 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.3801424782821425, "validation_loss": 1.350680781212116}
+{"epoch": 2, "train_loss": 1.356894261066918, "validation_loss": 1.3463949038289944}
+{"epoch": 3, "train_loss": 1.3545735112314161, "validation_loss": 1.3455212602461937}
+{"epoch": 4, "train_loss": 1.3537450178145447, "validation_loss": 1.3452663134788858}
+{"epoch": 5, "train_loss": 1.3526169005266409, "validation_loss": 1.3459091343779703}
+{"epoch": 6, "train_loss": 1.3521095136874435, "validation_loss": 1.3465653577161842}
+{"epoch": 7, "train_loss": 1.3519965103874005, "validation_loss": 1.3442924738820685}
+{"epoch": 8, "train_loss": 1.3513546149647233, "validation_loss": 1.3444442885047367}
+{"epoch": 9, "train_loss": 1.3505707121665091, "validation_loss": 1.3437491937808284}
+{"epoch": 10, "train_loss": 1.3506141234953144, "validation_loss": 1.345779587262939}
+{"epoch": 11, "train_loss": 1.3500783314467886, "validation_loss": 1.343843239328362}
+{"epoch": 12, "train_loss": 1.3499282748626409, "validation_loss": 1.345413377934987}
+Early stopping after epoch 12
+{
+  "samples": 116677,
+  "temperature": 0.8,
+  "exact_sequence_at_1": 0.561310283946279,
+  "sequence_coverage_at_4": 0.9737994634760921,
+  "mean_correct_prefix_nodes": 0.561310283946279,
+  "next_node_transition_accuracy": 0.2500216476456021,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.561310283946279,
+      "macro_f1": 0.3297630274724757,
+      "prefix_accuracy": 0.561310283946279
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.430924689527499,
+    "exact_precision_when_triggered": 0.7675769207820362,
+    "mean_safe_prefix_when_triggered": 0.7675769207820362
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h1_hist3.json

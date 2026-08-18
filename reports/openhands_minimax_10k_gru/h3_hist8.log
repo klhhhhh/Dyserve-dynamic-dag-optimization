@@ -1,0 +1,52 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.3861348001610572, "validation_loss": 1.3454520046282896}
+{"epoch": 2, "train_loss": 1.352257375654672, "validation_loss": 1.337486145339523}
+{"epoch": 3, "train_loss": 1.3474283771277122, "validation_loss": 1.336634930417785}
+{"epoch": 4, "train_loss": 1.3444898824293963, "validation_loss": 1.333162348224527}
+{"epoch": 5, "train_loss": 1.3424944552594869, "validation_loss": 1.3335119840161138}
+{"epoch": 6, "train_loss": 1.3409974554466404, "validation_loss": 1.3318094972014873}
+{"epoch": 7, "train_loss": 1.340193637685881, "validation_loss": 1.33189175326192}
+{"epoch": 8, "train_loss": 1.339016730743074, "validation_loss": 1.3322610197448073}
+{"epoch": 9, "train_loss": 1.3379842273835005, "validation_loss": 1.331603965914068}
+{"epoch": 10, "train_loss": 1.3373983423226325, "validation_loss": 1.3321851067829324}
+{"epoch": 11, "train_loss": 1.3362771112430738, "validation_loss": 1.3316542410158763}
+{"epoch": 12, "train_loss": 1.3356222034510434, "validation_loss": 1.3319104823871646}
+Early stopping after epoch 12
+{
+  "samples": 116677,
+  "temperature": 0.85,
+  "exact_sequence_at_1": 0.24926077975950703,
+  "sequence_coverage_at_4": 0.36620756447286096,
+  "mean_correct_prefix_nodes": 1.1590973370930002,
+  "next_node_transition_accuracy": 0.27977417176107927,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5617302467495736,
+      "macro_f1": 0.3606724520654418,
+      "prefix_accuracy": 0.5617302467495736
+    },
+    {
+      "depth": 2,
+      "accuracy": 0.4790147158394542,
+      "macro_f1": 0.3208735896917917,
+      "prefix_accuracy": 0.3481063105839197
+    },
+    {
+      "depth": 3,
+      "accuracy": 0.43075327613839914,
+      "macro_f1": 0.2926237438049268,
+      "prefix_accuracy": 0.24926077975950703
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.23631049821301542,
+    "exact_precision_when_triggered": 0.7346583490497606,
+    "mean_safe_prefix_when_triggered": 2.454410271289714
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h3_hist8.json

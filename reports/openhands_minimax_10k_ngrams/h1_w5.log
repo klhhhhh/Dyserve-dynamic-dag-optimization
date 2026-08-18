@@ -1,0 +1,709 @@
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+{
+  "config": {
+    "trace_path": "/home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl",
+    "window": 5,
+    "horizon": 1,
+    "top_k": 4,
+    "test_ratio": 0.2,
+    "confidence": 0.6,
+    "alpha": 0.25,
+    "seed": 42,
+    "taxonomy": "semantic",
+    "converted_out": null,
+    "report_out": "/home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_ngrams/h1_w5.json"
+  },
+  "all_data": {
+    "runs": 10000,
+    "instances": 10000,
+    "node_counts": {
+      "inspect": 318352,
+      "shell": 113675,
+      "edit": 79346,
+      "test": 70693,
+      "STOP": 10000,
+      "reason": 4678,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.6745,
+    "median_actions_per_run": 54
+  },
+  "train": {
+    "runs": 8000,
+    "instances": 8000,
+    "node_counts": {
+      "inspect": 255520,
+      "shell": 90528,
+      "edit": 63655,
+      "test": 56660,
+      "STOP": 8000,
+      "reason": 3704,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.7585,
+    "median_actions_per_run": 55
+  },
+  "test": {
+    "runs": 2000,
+    "instances": 2000,
+    "node_counts": {
+      "inspect": 62832,
+      "shell": 23147,
+      "edit": 15691,
+      "test": 14033,
+      "STOP": 2000,
+      "reason": 974
+    },
+    "mean_actions_per_run": 58.3385,
+    "median_actions_per_run": 54
+  },
+  "model": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.5841168353660104,
+    "sequence_coverage_at_4": 0.9765592190405993,
+    "mean_correct_prefix_nodes": 0.5841168353660104,
+    "next_node_transition_accuracy": 0.34563496874079974,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5841168353660104,
+        "macro_f1": 0.29562545319398686,
+        "prefix_accuracy": 0.5841168353660104
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.3873428353488691,
+      "exact_precision_when_triggered": 0.8080718679470726,
+      "mean_safe_prefix_when_triggered": 0.8080718679470726
+    }
+  },
+  "context_free_baseline": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.5213709642860204,
+    "sequence_coverage_at_4": 0.9745108290408564,
+    "mean_correct_prefix_nodes": 0.5213709642860204,
+    "next_node_transition_accuracy": 0.29222589751138667,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5213709642860204,
+        "macro_f1": 0.11423270557173627,
+        "prefix_accuracy": 0.5213709642860204
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "examples": [
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "reason",
+        "inspect",
+        "shell",
+        "edit"
+      ],
+      "truth": [
+        "shell"
+      ],
+      "predicted": [
+        "shell"
+      ],
+      "top_k": [
+        [
+          "shell"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "shell",
+        "reason",
+        "inspect",
+        "shell",
+        "edit"
+      ]
+    },
+    {
+      "instance_id": "ariga__atlas-2127",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "reason",
+        "shell"
+      ],
+      "truth": [
+        "inspect"
+      ],
+      "predicted": [
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "edit",
+        "shell",
+        "inspect",
+        "reason",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "astropenguin__xarray-dataclasses-2",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason"
+      ],
+      "truth": [
+        "shell"
+      ],
+      "predicted": [
+        "edit"
+      ],
+      "top_k": [
+        [
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "astropenguin__xarray-dataclasses-2",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason",
+        "shell"
+      ],
+      "truth": [
+        "edit"
+      ],
+      "predicted": [
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "shell",
+        "edit",
+        "shell",
+        "reason",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "astropenguin__xarray-dataclasses-2",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason",
+        "shell",
+        "edit"
+      ],
+      "truth": [
+        "shell"
+      ],
+      "predicted": [
+        "edit"
+      ],
+      "top_k": [
+        [
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "edit",
+        "shell",
+        "reason",
+        "shell",
+        "edit"
+      ]
+    },
+    {
+      "instance_id": "awslabs__aws-embedded-metrics-node-82",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "shell",
+        "inspect",
+        "test",
+        "edit",
+        "shell",
+        "shell",
+        "shell",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "reason",
+        "shell",
+        "inspect",
+        "test",
+        "shell"
+      ],
+      "truth": [
+        "inspect"
+      ],
+      "predicted": [
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "reason",
+        "shell",
+        "inspect",
+        "test",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "bluenviron__gortsplib-316",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "shell",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "shell",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "shell",
+        "shell",
+        "test",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "test",
+        "shell",
+        "test",
+        "shell",
+        "test",
+        "test",
+        "edit",
+        "shell",
+        "shell",
+        "inspect",
+        "edit",
+        "shell",
+        "reason",
+        "test"
+      ],
+      "truth": [
+        "inspect"
+      ],
+      "predicted": [
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "inspect",
+        "edit",
+        "shell",
+        "reason",
+        "test"
+      ]
+    },
+    {
+      "instance_id": "bytecodealliance__wasm-tools-1318",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "test",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "test",
+        "edit",
+        "inspect",
+        "edit",
+        "edit",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "test",
+        "inspect",
+        "shell",
+        "edit",
+        "test",
+        "reason"
+      ],
+      "truth": [
+        "inspect"
+      ],
+      "predicted": [
+        "edit"
+      ],
+      "top_k": [
+        [
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "inspect",
+        "shell",
+        "edit",
+        "test",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "chaijs__chai-990",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "test",
+        "reason",
+        "shell"
+      ],
+      "truth": [
+        "inspect"
+      ],
+      "predicted": [
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "edit",
+        "test",
+        "reason",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "chaijs__chai-990",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "test",
+        "reason",
+        "shell",
+        "inspect"
+      ],
+      "truth": [
+        "edit"
+      ],
+      "predicted": [
+        "edit"
+      ],
+      "top_k": [
+        [
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "edit",
+        "test",
+        "reason",
+        "shell",
+        "inspect"
+      ]
+    }
+  ]
+}

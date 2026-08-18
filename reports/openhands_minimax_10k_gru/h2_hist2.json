@@ -1,0 +1,636 @@
+{
+  "config": {
+    "trace_path": "/home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl",
+    "history_length": 2,
+    "horizon": 2,
+    "embedding_dim": 32,
+    "hidden_size": 64,
+    "dropout": 0.1,
+    "epochs": 20,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "depth_decay": 0.7,
+    "gradient_clip": 1.0,
+    "patience": 3,
+    "min_delta": 0.0001,
+    "test_ratio": 0.2,
+    "validation_ratio": 0.15,
+    "top_k": 4,
+    "confidence": 0.6,
+    "seed": 42,
+    "device": "auto",
+    "no_class_weights": false,
+    "report_out": "/home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h2_hist2.json",
+    "checkpoint_out": "/home/kun/dyserve/dag-predict/checkpoints/openhands_minimax_10k_gru/h2_hist2.pt"
+  },
+  "device": "cuda",
+  "vocabulary": {
+    "tokens": [
+      "<PAD>",
+      "<UNK>",
+      "STOP",
+      "edit",
+      "fetch",
+      "inspect",
+      "reason",
+      "shell",
+      "test"
+    ],
+    "labels": [
+      "STOP",
+      "edit",
+      "fetch",
+      "inspect",
+      "reason",
+      "shell",
+      "test"
+    ],
+    "train_counts": {
+      "inspect": 217502,
+      "edit": 54263,
+      "shell": 77377,
+      "test": 48130,
+      "STOP": 6800,
+      "reason": 3175,
+      "fetch": 1
+    }
+  },
+  "all_data": {
+    "runs": 10000,
+    "instances": 10000,
+    "node_counts": {
+      "inspect": 318352,
+      "shell": 113675,
+      "edit": 79346,
+      "test": 70693,
+      "STOP": 10000,
+      "reason": 4678,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.6745,
+    "median_actions_per_run": 54
+  },
+  "train": {
+    "runs": 6800,
+    "instances": 6800,
+    "node_counts": {
+      "inspect": 217502,
+      "shell": 77377,
+      "edit": 54263,
+      "test": 48130,
+      "STOP": 6800,
+      "reason": 3175,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.88941176470588,
+    "median_actions_per_run": 55
+  },
+  "validation": {
+    "runs": 1200,
+    "instances": 1200,
+    "node_counts": {
+      "inspect": 38018,
+      "shell": 13151,
+      "edit": 9392,
+      "test": 8530,
+      "STOP": 1200,
+      "reason": 529
+    },
+    "mean_actions_per_run": 58.016666666666666,
+    "median_actions_per_run": 54
+  },
+  "test": {
+    "runs": 2000,
+    "instances": 2000,
+    "node_counts": {
+      "inspect": 62832,
+      "shell": 23147,
+      "edit": 15691,
+      "test": 14033,
+      "STOP": 2000,
+      "reason": 974
+    },
+    "mean_actions_per_run": 58.3385,
+    "median_actions_per_run": 54
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.4608180578550973,
+      "validation_loss": 1.4381294627738936
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.4425578418585063,
+      "validation_loss": 1.4348897487122039
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.4412142532939096,
+      "validation_loss": 1.4349497931334385
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.440180730339588,
+      "validation_loss": 1.4330988735277328
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.439685945943729,
+      "validation_loss": 1.4333220138936096
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.4387567823489902,
+      "validation_loss": 1.4338169044545586
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.438991584849468,
+      "validation_loss": 1.4327974990673773
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.4385642540117642,
+      "validation_loss": 1.4334586786970398
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.4384840827066716,
+      "validation_loss": 1.4328847249326129
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.4383245564238683,
+      "validation_loss": 1.4332361297270444
+    }
+  ],
+  "model": {
+    "samples": 116677,
+    "temperature": 0.75,
+    "exact_sequence_at_1": 0.33171919058597665,
+    "sequence_coverage_at_4": 0.5558593381729047,
+    "mean_correct_prefix_nodes": 0.8870557179221269,
+    "next_node_transition_accuracy": 0.20468281869663854,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5553365273361502,
+        "macro_f1": 0.3186796066617736,
+        "prefix_accuracy": 0.5553365273361502
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.46341609743137036,
+        "macro_f1": 0.298848824346405,
+        "prefix_accuracy": 0.33171919058597665
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.3944479203270567,
+      "exact_precision_when_triggered": 0.6383330074093388,
+      "mean_safe_prefix_when_triggered": 1.4174869087195532
+    }
+  },
+  "ngram_window_3": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.39253666103859375,
+    "sequence_coverage_at_4": 0.6514908679516958,
+    "mean_correct_prefix_nodes": 0.9635146601301028,
+    "next_node_transition_accuracy": 0.37724053131981367,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.570977999091509,
+        "macro_f1": 0.2509633337467913,
+        "prefix_accuracy": 0.570977999091509
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.525587733657876,
+        "macro_f1": 0.22724354297739133,
+        "prefix_accuracy": 0.39253666103859375
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.30728421196979694,
+      "exact_precision_when_triggered": 0.6888963266672244,
+      "mean_safe_prefix_when_triggered": 1.5080467464368392
+    }
+  },
+  "context_free_baseline": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.3596081489925178,
+    "sequence_coverage_at_4": 0.5479057569186729,
+    "mean_correct_prefix_nodes": 0.8809791132785382,
+    "next_node_transition_accuracy": 0.29222589751138667,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5213709642860204,
+        "macro_f1": 0.11423270557173627,
+        "prefix_accuracy": 0.5213709642860204
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5042296253760381,
+        "macro_f1": 0.11173596035910789,
+        "prefix_accuracy": 0.3596081489925178
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "examples": [
+    {
+      "instance_id": "open-feature__java-sdk-34",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "designliquido__delegua-732",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "vaskoz__dailycodingproblem-go-350",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "symfony__ux-2407",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "amaranth-lang__amaranth-1146",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "operator-framework__operator-sdk-5585",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "junegunn__fzf-4231",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "peak__s5cmd-187",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "kubernetes-sigs__cloud-provider-azure-1105",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    },
+    {
+      "instance_id": "friendsofphp__php-cs-fixer-6015",
+      "history": [
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.970331609249115,
+      "per_depth_confidence": [
+        0.9827070832252502,
+        0.970331609249115
+      ],
+      "prefix_len": 2
+    }
+  ]
+}

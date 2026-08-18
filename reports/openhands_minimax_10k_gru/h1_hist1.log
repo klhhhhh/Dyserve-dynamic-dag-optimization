@@ -1,0 +1,39 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.4926348940450123, "validation_loss": 1.4812691583677258}
+{"epoch": 2, "train_loss": 1.4812125156762903, "validation_loss": 1.4808478985117688}
+{"epoch": 3, "train_loss": 1.480887206251941, "validation_loss": 1.4802152977014402}
+{"epoch": 4, "train_loss": 1.480616807156484, "validation_loss": 1.479489298005174}
+{"epoch": 5, "train_loss": 1.4801321516254944, "validation_loss": 1.479964323915034}
+{"epoch": 6, "train_loss": 1.4800226776215413, "validation_loss": 1.47939281798546}
+{"epoch": 7, "train_loss": 1.4801053067489764, "validation_loss": 1.478900671532633}
+{"epoch": 8, "train_loss": 1.479986529981288, "validation_loss": 1.4784923500111993}
+{"epoch": 9, "train_loss": 1.4797574288551278, "validation_loss": 1.4789304029184729}
+{"epoch": 10, "train_loss": 1.4794413934829271, "validation_loss": 1.4794402512898563}
+{"epoch": 11, "train_loss": 1.4787715605049445, "validation_loss": 1.4791983461626574}
+Early stopping after epoch 11
+{
+  "samples": 116677,
+  "temperature": 0.7,
+  "exact_sequence_at_1": 0.5440575263333819,
+  "sequence_coverage_at_4": 0.9716996494596193,
+  "mean_correct_prefix_nodes": 0.5440575263333819,
+  "next_node_transition_accuracy": 0.1337478135877942,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5440575263333819,
+      "macro_f1": 0.25891309774063626,
+      "prefix_accuracy": 0.5440575263333819
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.5385123031960026,
+    "exact_precision_when_triggered": 0.699611662846957,
+    "mean_safe_prefix_when_triggered": 0.699611662846957
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h1_hist1.json

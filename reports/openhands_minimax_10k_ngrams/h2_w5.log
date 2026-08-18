@@ -1,0 +1,810 @@
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+{
+  "config": {
+    "trace_path": "/home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl",
+    "window": 5,
+    "horizon": 2,
+    "top_k": 4,
+    "test_ratio": 0.2,
+    "confidence": 0.6,
+    "alpha": 0.25,
+    "seed": 42,
+    "taxonomy": "semantic",
+    "converted_out": null,
+    "report_out": "/home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_ngrams/h2_w5.json"
+  },
+  "all_data": {
+    "runs": 10000,
+    "instances": 10000,
+    "node_counts": {
+      "inspect": 318352,
+      "shell": 113675,
+      "edit": 79346,
+      "test": 70693,
+      "STOP": 10000,
+      "reason": 4678,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.6745,
+    "median_actions_per_run": 54
+  },
+  "train": {
+    "runs": 8000,
+    "instances": 8000,
+    "node_counts": {
+      "inspect": 255520,
+      "shell": 90528,
+      "edit": 63655,
+      "test": 56660,
+      "STOP": 8000,
+      "reason": 3704,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.7585,
+    "median_actions_per_run": 55
+  },
+  "test": {
+    "runs": 2000,
+    "instances": 2000,
+    "node_counts": {
+      "inspect": 62832,
+      "shell": 23147,
+      "edit": 15691,
+      "test": 14033,
+      "STOP": 2000,
+      "reason": 974
+    },
+    "mean_actions_per_run": 58.3385,
+    "median_actions_per_run": 54
+  },
+  "model": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.39416508823504204,
+    "sequence_coverage_at_4": 0.6602672334736066,
+    "mean_correct_prefix_nodes": 0.972993820547323,
+    "next_node_transition_accuracy": 0.3824359662643091,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5788287323122809,
+        "macro_f1": 0.28317522700469977,
+        "prefix_accuracy": 0.5788287323122809
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5242507092228974,
+        "macro_f1": 0.2421793689334535,
+        "prefix_accuracy": 0.39416508823504204
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.24662958423682474,
+      "exact_precision_when_triggered": 0.7616763969974979,
+      "mean_safe_prefix_when_triggered": 1.6307686961356687
+    }
+  },
+  "context_free_baseline": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.3596081489925178,
+    "sequence_coverage_at_4": 0.5479057569186729,
+    "mean_correct_prefix_nodes": 0.8809791132785382,
+    "next_node_transition_accuracy": 0.29222589751138667,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5213709642860204,
+        "macro_f1": 0.11423270557173627,
+        "prefix_accuracy": 0.5213709642860204
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5042296253760381,
+        "macro_f1": 0.11173596035910789,
+        "prefix_accuracy": 0.3596081489925178
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "examples": [
+    {
+      "instance_id": "ariga__atlas-2127",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "reason",
+        "shell"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "edit"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "edit",
+        "shell",
+        "inspect",
+        "reason",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "astropenguin__xarray-dataclasses-2",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason"
+      ],
+      "truth": [
+        "shell",
+        "edit"
+      ],
+      "predicted": [
+        "edit",
+        "edit"
+      ],
+      "top_k": [
+        [
+          "edit",
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "astropenguin__xarray-dataclasses-2",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason",
+        "shell"
+      ],
+      "truth": [
+        "edit",
+        "shell"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "shell",
+        "edit",
+        "shell",
+        "reason",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "astropenguin__xarray-dataclasses-2",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "edit",
+        "shell",
+        "reason",
+        "shell",
+        "edit"
+      ],
+      "truth": [
+        "shell",
+        "edit"
+      ],
+      "predicted": [
+        "edit",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "edit",
+        "shell",
+        "reason",
+        "shell",
+        "edit"
+      ]
+    },
+    {
+      "instance_id": "awslabs__aws-embedded-metrics-node-82",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "shell",
+        "inspect",
+        "test",
+        "edit",
+        "shell",
+        "shell",
+        "shell",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "reason",
+        "shell",
+        "inspect",
+        "test",
+        "shell"
+      ],
+      "truth": [
+        "inspect",
+        "shell"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "reason",
+        "shell",
+        "inspect",
+        "test",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "bluenviron__gortsplib-316",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "shell",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "shell",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "shell",
+        "shell",
+        "test",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "shell",
+        "test",
+        "shell",
+        "test",
+        "shell",
+        "test",
+        "test",
+        "edit",
+        "shell",
+        "shell",
+        "inspect",
+        "edit",
+        "shell",
+        "reason",
+        "test"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "edit",
+        "shell",
+        "reason",
+        "test"
+      ]
+    },
+    {
+      "instance_id": "bytecodealliance__wasm-tools-1318",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "test",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "test",
+        "edit",
+        "inspect",
+        "edit",
+        "edit",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "test",
+        "inspect",
+        "shell",
+        "edit",
+        "test",
+        "reason"
+      ],
+      "truth": [
+        "inspect",
+        "edit"
+      ],
+      "predicted": [
+        "edit",
+        "test"
+      ],
+      "top_k": [
+        [
+          "edit",
+          "test"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "inspect",
+        "shell",
+        "edit",
+        "test",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "chaijs__chai-990",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "test",
+        "reason",
+        "shell"
+      ],
+      "truth": [
+        "inspect",
+        "edit"
+      ],
+      "predicted": [
+        "inspect",
+        "edit"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 2,
+      "context": [
+        "edit",
+        "test",
+        "reason",
+        "shell"
+      ]
+    },
+    {
+      "instance_id": "chaijs__chai-990",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "test",
+        "reason",
+        "shell",
+        "inspect"
+      ],
+      "truth": [
+        "edit",
+        "shell"
+      ],
+      "predicted": [
+        "edit",
+        "edit"
+      ],
+      "top_k": [
+        [
+          "edit",
+          "edit"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 1,
+      "context": [
+        "edit",
+        "test",
+        "reason",
+        "shell",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "cloudspannerecosystem__memefish-191",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "shell",
+        "edit",
+        "shell",
+        "shell",
+        "edit",
+        "edit",
+        "shell",
+        "shell",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "edit",
+        "edit",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "inspect",
+        "edit",
+        "shell",
+        "edit",
+        "edit",
+        "edit",
+        "shell",
+        "test",
+        "edit",
+        "shell",
+        "inspect",
+        "test",
+        "test",
+        "inspect",
+        "inspect",
+        "test",
+        "test",
+        "inspect",
+        "test",
+        "inspect",
+        "reason",
+        "inspect",
+        "shell",
+        "test"
+      ],
+      "truth": [
+        "STOP",
+        "STOP"
+      ],
+      "predicted": [
+        "test",
+        "test"
+      ],
+      "top_k": [
+        [
+          "test",
+          "test"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "inspect",
+        "reason",
+        "inspect",
+        "shell",
+        "test"
+      ]
+    }
+  ]
+}

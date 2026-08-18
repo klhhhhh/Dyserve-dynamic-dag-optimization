@@ -1,0 +1,40 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.2918543061338257, "validation_loss": 1.2485084469377978}
+{"epoch": 2, "train_loss": 1.249617509249778, "validation_loss": 1.2315695698115374}
+{"epoch": 3, "train_loss": 1.2413951584720109, "validation_loss": 1.2278554810905074}
+{"epoch": 4, "train_loss": 1.23742452549138, "validation_loss": 1.227086818817531}
+{"epoch": 5, "train_loss": 1.233891283339808, "validation_loss": 1.223320258187686}
+{"epoch": 6, "train_loss": 1.2319678310694855, "validation_loss": 1.2218070983064822}
+{"epoch": 7, "train_loss": 1.2303008570235932, "validation_loss": 1.2214230579536764}
+{"epoch": 8, "train_loss": 1.2286118919025961, "validation_loss": 1.2206931771988225}
+{"epoch": 9, "train_loss": 1.2268694623583172, "validation_loss": 1.2183513349789512}
+{"epoch": 10, "train_loss": 1.2253493110135625, "validation_loss": 1.2206468276133724}
+{"epoch": 11, "train_loss": 1.2233656063730656, "validation_loss": 1.2202053683956817}
+{"epoch": 12, "train_loss": 1.2221601739256684, "validation_loss": 1.2196297873645225}
+Early stopping after epoch 12
+{
+  "samples": 116677,
+  "temperature": 0.85,
+  "exact_sequence_at_1": 0.5634786633183918,
+  "sequence_coverage_at_4": 0.9783247769483274,
+  "mean_correct_prefix_nodes": 0.5634786633183918,
+  "next_node_transition_accuracy": 0.3126959111926987,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5634786633183918,
+      "macro_f1": 0.37435054216681113,
+      "prefix_accuracy": 0.5634786633183918
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.38961406275444177,
+    "exact_precision_when_triggered": 0.7901845619129325,
+    "mean_safe_prefix_when_triggered": 0.7901845619129325
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h1_hist16.json

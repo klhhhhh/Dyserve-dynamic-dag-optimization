@@ -1,0 +1,46 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.3322905977446373, "validation_loss": 1.2858747949068727}
+{"epoch": 2, "train_loss": 1.2901556385540822, "validation_loss": 1.2752958941754169}
+{"epoch": 3, "train_loss": 1.2836153369676158, "validation_loss": 1.26931340586896}
+{"epoch": 4, "train_loss": 1.279173997257471, "validation_loss": 1.2684195691913889}
+{"epoch": 5, "train_loss": 1.2758780345761283, "validation_loss": 1.2665030989418151}
+{"epoch": 6, "train_loss": 1.2739933539793402, "validation_loss": 1.2647639668628219}
+{"epoch": 7, "train_loss": 1.272238072942045, "validation_loss": 1.265451872797404}
+{"epoch": 8, "train_loss": 1.2704003314459802, "validation_loss": 1.2644546777549335}
+{"epoch": 9, "train_loss": 1.2687394359497783, "validation_loss": 1.263717735803391}
+{"epoch": 10, "train_loss": 1.267587388040007, "validation_loss": 1.2662557209609946}
+{"epoch": 11, "train_loss": 1.2658625747975745, "validation_loss": 1.264072133295497}
+{"epoch": 12, "train_loss": 1.2650762698092894, "validation_loss": 1.2648336627708705}
+Early stopping after epoch 12
+{
+  "samples": 116677,
+  "temperature": 0.85,
+  "exact_sequence_at_1": 0.35037753798949234,
+  "sequence_coverage_at_4": 0.6005382380417734,
+  "mean_correct_prefix_nodes": 0.9141304627304438,
+  "next_node_transition_accuracy": 0.3076390211800565,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5637529247409515,
+      "macro_f1": 0.3748009257349681,
+      "prefix_accuracy": 0.5637529247409515
+    },
+    {
+      "depth": 2,
+      "accuracy": 0.4824344129519957,
+      "macro_f1": 0.33247018257905053,
+      "prefix_accuracy": 0.35037753798949234
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.2429013430239036,
+    "exact_precision_when_triggered": 0.7996894957834939,
+    "mean_safe_prefix_when_triggered": 1.686673017889277
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h2_hist16.json

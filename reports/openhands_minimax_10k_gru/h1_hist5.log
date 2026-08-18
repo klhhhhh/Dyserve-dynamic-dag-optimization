@@ -1,0 +1,40 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.345371884337168, "validation_loss": 1.310650760769262}
+{"epoch": 2, "train_loss": 1.3171087259756256, "validation_loss": 1.3024067885298318}
+{"epoch": 3, "train_loss": 1.3133189428037437, "validation_loss": 1.3025779466319447}
+{"epoch": 4, "train_loss": 1.311628338855087, "validation_loss": 1.3007787645017235}
+{"epoch": 5, "train_loss": 1.3095445279326705, "validation_loss": 1.3015524896182262}
+{"epoch": 6, "train_loss": 1.3088772207931987, "validation_loss": 1.299592768560364}
+{"epoch": 7, "train_loss": 1.3081764941667433, "validation_loss": 1.3004349521233138}
+{"epoch": 8, "train_loss": 1.3071584948453923, "validation_loss": 1.2990657398256205}
+{"epoch": 9, "train_loss": 1.3062706308012784, "validation_loss": 1.2977610777110007}
+{"epoch": 10, "train_loss": 1.305828984122469, "validation_loss": 1.2998671552772598}
+{"epoch": 11, "train_loss": 1.3048362143793788, "validation_loss": 1.2984741611406743}
+{"epoch": 12, "train_loss": 1.3043533749181813, "validation_loss": 1.2993894842567542}
+Early stopping after epoch 12
+{
+  "samples": 116677,
+  "temperature": 0.8,
+  "exact_sequence_at_1": 0.563247255243107,
+  "sequence_coverage_at_4": 0.9733623593338876,
+  "mean_correct_prefix_nodes": 0.563247255243107,
+  "next_node_transition_accuracy": 0.2610706059608957,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.563247255243107,
+      "macro_f1": 0.34656190045103846,
+      "prefix_accuracy": 0.563247255243107
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.3863743497004551,
+    "exact_precision_when_triggered": 0.7821476897140702,
+    "mean_safe_prefix_when_triggered": 0.7821476897140702
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h1_hist5.json

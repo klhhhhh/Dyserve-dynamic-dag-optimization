@@ -1,0 +1,40 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.3199383516899976, "validation_loss": 1.2802293720960412}
+{"epoch": 2, "train_loss": 1.2856235900054025, "validation_loss": 1.2684277833518336}
+{"epoch": 3, "train_loss": 1.2802561809027064, "validation_loss": 1.2675235497407}
+{"epoch": 4, "train_loss": 1.2773118957993854, "validation_loss": 1.2661337791041238}
+{"epoch": 5, "train_loss": 1.274692739353634, "validation_loss": 1.2648194779270308}
+{"epoch": 6, "train_loss": 1.273346941844903, "validation_loss": 1.2630391473161937}
+{"epoch": 7, "train_loss": 1.2726547466559743, "validation_loss": 1.2637214847626066}
+{"epoch": 8, "train_loss": 1.270736524771821, "validation_loss": 1.2630707265110888}
+{"epoch": 9, "train_loss": 1.269372853185682, "validation_loss": 1.2619340503397292}
+{"epoch": 10, "train_loss": 1.2687441208062697, "validation_loss": 1.2637730019149407}
+{"epoch": 11, "train_loss": 1.2671569056912544, "validation_loss": 1.2667555230474101}
+{"epoch": 12, "train_loss": 1.2662372486039208, "validation_loss": 1.2628819657550123}
+Early stopping after epoch 12
+{
+  "samples": 116677,
+  "temperature": 0.85,
+  "exact_sequence_at_1": 0.5622444869168731,
+  "sequence_coverage_at_4": 0.9724624390411135,
+  "mean_correct_prefix_nodes": 0.5622444869168731,
+  "next_node_transition_accuracy": 0.2774708622690196,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5622444869168731,
+      "macro_f1": 0.35921669733532724,
+      "prefix_accuracy": 0.5622444869168731
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.3836660181526779,
+    "exact_precision_when_triggered": 0.7945046353177706,
+    "mean_safe_prefix_when_triggered": 0.7945046353177706
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h1_hist8.json

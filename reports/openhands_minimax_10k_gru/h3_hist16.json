@@ -1,0 +1,744 @@
+{
+  "config": {
+    "trace_path": "/home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl",
+    "history_length": 16,
+    "horizon": 3,
+    "embedding_dim": 32,
+    "hidden_size": 64,
+    "dropout": 0.1,
+    "epochs": 20,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "depth_decay": 0.7,
+    "gradient_clip": 1.0,
+    "patience": 3,
+    "min_delta": 0.0001,
+    "test_ratio": 0.2,
+    "validation_ratio": 0.15,
+    "top_k": 4,
+    "confidence": 0.6,
+    "seed": 42,
+    "device": "auto",
+    "no_class_weights": false,
+    "report_out": "/home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h3_hist16.json",
+    "checkpoint_out": "/home/kun/dyserve/dag-predict/checkpoints/openhands_minimax_10k_gru/h3_hist16.pt"
+  },
+  "device": "cuda",
+  "vocabulary": {
+    "tokens": [
+      "<PAD>",
+      "<UNK>",
+      "STOP",
+      "edit",
+      "fetch",
+      "inspect",
+      "reason",
+      "shell",
+      "test"
+    ],
+    "labels": [
+      "STOP",
+      "edit",
+      "fetch",
+      "inspect",
+      "reason",
+      "shell",
+      "test"
+    ],
+    "train_counts": {
+      "inspect": 217502,
+      "edit": 54263,
+      "shell": 77377,
+      "test": 48130,
+      "STOP": 6800,
+      "reason": 3175,
+      "fetch": 1
+    }
+  },
+  "all_data": {
+    "runs": 10000,
+    "instances": 10000,
+    "node_counts": {
+      "inspect": 318352,
+      "shell": 113675,
+      "edit": 79346,
+      "test": 70693,
+      "STOP": 10000,
+      "reason": 4678,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.6745,
+    "median_actions_per_run": 54
+  },
+  "train": {
+    "runs": 6800,
+    "instances": 6800,
+    "node_counts": {
+      "inspect": 217502,
+      "shell": 77377,
+      "edit": 54263,
+      "test": 48130,
+      "STOP": 6800,
+      "reason": 3175,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.88941176470588,
+    "median_actions_per_run": 55
+  },
+  "validation": {
+    "runs": 1200,
+    "instances": 1200,
+    "node_counts": {
+      "inspect": 38018,
+      "shell": 13151,
+      "edit": 9392,
+      "test": 8530,
+      "STOP": 1200,
+      "reason": 529
+    },
+    "mean_actions_per_run": 58.016666666666666,
+    "median_actions_per_run": 54
+  },
+  "test": {
+    "runs": 2000,
+    "instances": 2000,
+    "node_counts": {
+      "inspect": 62832,
+      "shell": 23147,
+      "edit": 15691,
+      "test": 14033,
+      "STOP": 2000,
+      "reason": 974
+    },
+    "mean_actions_per_run": 58.3385,
+    "median_actions_per_run": 54
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.3526159748018254,
+      "validation_loss": 1.3050932025334097
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.3097019730921997,
+      "validation_loss": 1.293241220827385
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.3024258565765534,
+      "validation_loss": 1.2901704447874218
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.2985718792308267,
+      "validation_loss": 1.288698322243541
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.295411025389936,
+      "validation_loss": 1.2864019270978828
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.2935377909997334,
+      "validation_loss": 1.2859840664086895
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.2915644757717548,
+      "validation_loss": 1.2863761554809523
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.2899677454139242,
+      "validation_loss": 1.2863161074159748
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.2883260103390013,
+      "validation_loss": 1.2856879467390214
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.286845623046536,
+      "validation_loss": 1.286622630156035
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.2849550196323147,
+      "validation_loss": 1.2867667517214114
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.2843215203388099,
+      "validation_loss": 1.2871595153244224
+    }
+  ],
+  "model": {
+    "samples": 116677,
+    "temperature": 0.85,
+    "exact_sequence_at_1": 0.2553630964114607,
+    "sequence_coverage_at_4": 0.3750696366893218,
+    "mean_correct_prefix_nodes": 1.166210992740643,
+    "next_node_transition_accuracy": 0.3083490639558042,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.561344566624099,
+        "macro_f1": 0.37389972240717156,
+        "prefix_accuracy": 0.561344566624099
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.48177447140396135,
+        "macro_f1": 0.3330951851797635,
+        "prefix_accuracy": 0.34950332970508324
+      },
+      {
+        "depth": 3,
+        "accuracy": 0.44423493919110024,
+        "macro_f1": 0.307873345832663,
+        "prefix_accuracy": 0.2553630964114607
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.18929180558293407,
+      "exact_precision_when_triggered": 0.7784116634972381,
+      "mean_safe_prefix_when_triggered": 2.547541428959522
+    }
+  },
+  "ngram_window_3": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.2943682131011253,
+    "sequence_coverage_at_4": 0.44480917404458464,
+    "mean_correct_prefix_nodes": 1.2603683673731756,
+    "next_node_transition_accuracy": 0.38181251407096967,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5743291308484105,
+        "macro_f1": 0.2694395872722903,
+        "prefix_accuracy": 0.5743291308484105
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5230508154991986,
+        "macro_f1": 0.2345745352956746,
+        "prefix_accuracy": 0.39167102342363963
+      },
+      {
+        "depth": 3,
+        "accuracy": 0.4800346255045982,
+        "macro_f1": 0.20541918502390574,
+        "prefix_accuracy": 0.2943682131011253
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 3.428267781996452e-05,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.25
+    }
+  },
+  "context_free_baseline": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.27318151820838726,
+    "sequence_coverage_at_4": 0.36303641677451426,
+    "mean_correct_prefix_nodes": 1.1541606314869255,
+    "next_node_transition_accuracy": 0.29222589751138667,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5213709642860204,
+        "macro_f1": 0.11423270557173627,
+        "prefix_accuracy": 0.5213709642860204
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5042296253760381,
+        "macro_f1": 0.11173596035910789,
+        "prefix_accuracy": 0.3596081489925178
+      },
+      {
+        "depth": 3,
+        "accuracy": 0.48730255320243065,
+        "macro_f1": 0.10921394846735126,
+        "prefix_accuracy": 0.27318151820838726
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "examples": [
+    {
+      "instance_id": "open-feature__java-sdk-34",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "designliquido__delegua-732",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "vaskoz__dailycodingproblem-go-350",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "symfony__ux-2407",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "amaranth-lang__amaranth-1146",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "operator-framework__operator-sdk-5585",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "junegunn__fzf-4231",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "peak__s5cmd-187",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "kubernetes-sigs__cloud-provider-azure-1105",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    },
+    {
+      "instance_id": "friendsofphp__php-cs-fixer-6015",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "edit",
+          "inspect"
+        ]
+      ],
+      "confidence": 0.9326304793357849,
+      "per_depth_confidence": [
+        0.9810608625411987,
+        0.9543911814689636,
+        0.9326304793357849
+      ],
+      "prefix_len": 3
+    }
+  ]
+}

@@ -1,0 +1,621 @@
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+{
+  "config": {
+    "trace_path": "/home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl",
+    "window": 3,
+    "horizon": 2,
+    "top_k": 4,
+    "test_ratio": 0.2,
+    "confidence": 0.6,
+    "alpha": 0.25,
+    "seed": 42,
+    "taxonomy": "semantic",
+    "converted_out": null,
+    "report_out": "/home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_ngrams/h2_w3.json"
+  },
+  "all_data": {
+    "runs": 10000,
+    "instances": 10000,
+    "node_counts": {
+      "inspect": 318352,
+      "shell": 113675,
+      "edit": 79346,
+      "test": 70693,
+      "STOP": 10000,
+      "reason": 4678,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.6745,
+    "median_actions_per_run": 54
+  },
+  "train": {
+    "runs": 8000,
+    "instances": 8000,
+    "node_counts": {
+      "inspect": 255520,
+      "shell": 90528,
+      "edit": 63655,
+      "test": 56660,
+      "STOP": 8000,
+      "reason": 3704,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.7585,
+    "median_actions_per_run": 55
+  },
+  "test": {
+    "runs": 2000,
+    "instances": 2000,
+    "node_counts": {
+      "inspect": 62832,
+      "shell": 23147,
+      "edit": 15691,
+      "test": 14033,
+      "STOP": 2000,
+      "reason": 974
+    },
+    "mean_actions_per_run": 58.3385,
+    "median_actions_per_run": 54
+  },
+  "model": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.3927337864360585,
+    "sequence_coverage_at_4": 0.6515165799600606,
+    "mean_correct_prefix_nodes": 0.9639517642723073,
+    "next_node_transition_accuracy": 0.37834889077463935,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5712179778362488,
+        "macro_f1": 0.25106760837547487,
+        "prefix_accuracy": 0.5712179778362488
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5257334350386109,
+        "macro_f1": 0.2276986843378488,
+        "prefix_accuracy": 0.3927337864360585
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.30727564130034196,
+      "exact_precision_when_triggered": 0.6889155416713154,
+      "mean_safe_prefix_when_triggered": 1.5080888095503737
+    }
+  },
+  "context_free_baseline": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.3596081489925178,
+    "sequence_coverage_at_4": 0.5479057569186729,
+    "mean_correct_prefix_nodes": 0.8809791132785382,
+    "next_node_transition_accuracy": 0.29222589751138667,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5213709642860204,
+        "macro_f1": 0.11423270557173627,
+        "prefix_accuracy": 0.5213709642860204
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5042296253760381,
+        "macro_f1": 0.11173596035910789,
+        "prefix_accuracy": 0.3596081489925178
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "examples": [
+    {
+      "instance_id": "srvaroa__labeler-60",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "reason",
+        "inspect",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "shell",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "inspect",
+        "test",
+        "reason",
+        "shell",
+        "inspect",
+        "inspect",
+        "reason",
+        "shell",
+        "reason"
+      ],
+      "truth": [
+        "inspect",
+        "edit"
+      ],
+      "predicted": [
+        "test",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "test",
+          "inspect"
+        ]
+      ],
+      "confidence": 1.0,
+      "prefix_len": 0,
+      "context": [
+        "reason",
+        "shell",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "labstack__echo-1501",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "edit",
+        "shell",
+        "shell",
+        "shell",
+        "inspect",
+        "edit",
+        "shell",
+        "shell",
+        "inspect",
+        "edit",
+        "shell",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "edit",
+        "edit",
+        "shell",
+        "shell",
+        "reason",
+        "inspect",
+        "reason"
+      ],
+      "truth": [
+        "edit",
+        "shell"
+      ],
+      "predicted": [
+        "edit",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "edit",
+          "inspect"
+        ],
+        [
+          "edit",
+          "test"
+        ]
+      ],
+      "confidence": 0.7727272727272727,
+      "prefix_len": 1,
+      "context": [
+        "reason",
+        "inspect",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "platers__obsidian-linter-717",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "test",
+        "inspect",
+        "inspect",
+        "inspect",
+        "reason",
+        "inspect",
+        "test",
+        "edit",
+        "shell",
+        "inspect",
+        "shell",
+        "inspect",
+        "reason",
+        "inspect",
+        "reason"
+      ],
+      "truth": [
+        "inspect",
+        "edit"
+      ],
+      "predicted": [
+        "edit",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "edit",
+          "inspect"
+        ],
+        [
+          "edit",
+          "test"
+        ]
+      ],
+      "confidence": 0.7727272727272727,
+      "prefix_len": 0,
+      "context": [
+        "reason",
+        "inspect",
+        "reason"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.6753071632093791,
+      "prefix_len": 2,
+      "context": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ]
+    }
+  ]
+}

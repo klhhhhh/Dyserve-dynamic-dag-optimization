@@ -1,0 +1,625 @@
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+{
+  "config": {
+    "trace_path": "/home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl",
+    "window": 2,
+    "horizon": 3,
+    "top_k": 4,
+    "test_ratio": 0.2,
+    "confidence": 0.6,
+    "alpha": 0.25,
+    "seed": 42,
+    "taxonomy": "semantic",
+    "converted_out": null,
+    "report_out": "/home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_ngrams/h3_w2.json"
+  },
+  "all_data": {
+    "runs": 10000,
+    "instances": 10000,
+    "node_counts": {
+      "inspect": 318352,
+      "shell": 113675,
+      "edit": 79346,
+      "test": 70693,
+      "STOP": 10000,
+      "reason": 4678,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.6745,
+    "median_actions_per_run": 54
+  },
+  "train": {
+    "runs": 8000,
+    "instances": 8000,
+    "node_counts": {
+      "inspect": 255520,
+      "shell": 90528,
+      "edit": 63655,
+      "test": 56660,
+      "STOP": 8000,
+      "reason": 3704,
+      "fetch": 1
+    },
+    "mean_actions_per_run": 58.7585,
+    "median_actions_per_run": 55
+  },
+  "test": {
+    "runs": 2000,
+    "instances": 2000,
+    "node_counts": {
+      "inspect": 62832,
+      "shell": 23147,
+      "edit": 15691,
+      "test": 14033,
+      "STOP": 2000,
+      "reason": 974
+    },
+    "mean_actions_per_run": 58.3385,
+    "median_actions_per_run": 54
+  },
+  "model": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.28914010473358076,
+    "sequence_coverage_at_4": 0.4332987649665315,
+    "mean_correct_prefix_nodes": 1.2352477352005966,
+    "next_node_transition_accuracy": 0.34037026133037773,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5592104699298062,
+        "macro_f1": 0.2404435142436847,
+        "prefix_accuracy": 0.5592104699298062
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5243192745785373,
+        "macro_f1": 0.2292716691944502,
+        "prefix_accuracy": 0.3868971605372096
+      },
+      {
+        "depth": 3,
+        "accuracy": 0.4806602843748125,
+        "macro_f1": 0.19227227057599586,
+        "prefix_accuracy": 0.28914010473358076
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "context_free_baseline": {
+    "samples": 116677,
+    "exact_sequence_at_1": 0.27318151820838726,
+    "sequence_coverage_at_4": 0.36303641677451426,
+    "mean_correct_prefix_nodes": 1.1541606314869255,
+    "next_node_transition_accuracy": 0.29222589751138667,
+    "transition_samples": 57743,
+    "depth_metrics": [
+      {
+        "depth": 1,
+        "accuracy": 0.5213709642860204,
+        "macro_f1": 0.11423270557173627,
+        "prefix_accuracy": 0.5213709642860204
+      },
+      {
+        "depth": 2,
+        "accuracy": 0.5042296253760381,
+        "macro_f1": 0.11173596035910789,
+        "prefix_accuracy": 0.3596081489925178
+      },
+      {
+        "depth": 3,
+        "accuracy": 0.48730255320243065,
+        "macro_f1": 0.10921394846735126,
+        "prefix_accuracy": 0.27318151820838726
+      }
+    ],
+    "compile_gate": {
+      "confidence_threshold": 0.6,
+      "trigger_rate": 0.0,
+      "exact_precision_when_triggered": 0.0,
+      "mean_safe_prefix_when_triggered": 0.0
+    }
+  },
+  "examples": [
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    {
+      "instance_id": "11ty__eleventy-1749",
+      "history": [
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "truth": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "predicted": [
+        "inspect",
+        "inspect",
+        "inspect"
+      ],
+      "top_k": [
+        [
+          "inspect",
+          "inspect",
+          "inspect"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "edit"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "shell"
+        ],
+        [
+          "inspect",
+          "inspect",
+          "test"
+        ]
+      ],
+      "confidence": 0.5204770303934829,
+      "prefix_len": 3,
+      "context": [
+        "inspect",
+        "inspect"
+      ]
+    }
+  ]
+}

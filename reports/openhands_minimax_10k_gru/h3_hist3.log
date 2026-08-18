@@ -1,0 +1,47 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.4498271428111722, "validation_loss": 1.420365075200702}
+{"epoch": 2, "train_loss": 1.4274745588964104, "validation_loss": 1.4151803183165201}
+{"epoch": 3, "train_loss": 1.4253962058809135, "validation_loss": 1.415196531985348}
+{"epoch": 4, "train_loss": 1.4240880607510786, "validation_loss": 1.4133394841454694}
+{"epoch": 5, "train_loss": 1.4234189613760517, "validation_loss": 1.4145118142366067}
+{"epoch": 6, "train_loss": 1.42277886750543, "validation_loss": 1.4142942774607443}
+{"epoch": 7, "train_loss": 1.4227646619381569, "validation_loss": 1.4134976346134558}
+Early stopping after epoch 7
+{
+  "samples": 116677,
+  "temperature": 0.75,
+  "exact_sequence_at_1": 0.23799034942619368,
+  "sequence_coverage_at_4": 0.34326388234184974,
+  "mean_correct_prefix_nodes": 1.1446471883918854,
+  "next_node_transition_accuracy": 0.25041996432468006,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5602989449505901,
+      "macro_f1": 0.3299093361113939,
+      "prefix_accuracy": 0.5602989449505901
+    },
+    {
+      "depth": 2,
+      "accuracy": 0.4724067296896561,
+      "macro_f1": 0.30100150815974297,
+      "prefix_accuracy": 0.34635789401510153
+    },
+    {
+      "depth": 3,
+      "accuracy": 0.395176427230731,
+      "macro_f1": 0.26404649878190023,
+      "prefix_accuracy": 0.23799034942619368
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.3252226231390934,
+    "exact_precision_when_triggered": 0.6065197912823486,
+    "mean_safe_prefix_when_triggered": 2.1369577821114216
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h3_hist3.json

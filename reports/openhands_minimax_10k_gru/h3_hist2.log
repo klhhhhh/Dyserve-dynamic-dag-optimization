@@ -1,0 +1,50 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.4850951474334402, "validation_loss": 1.4614646907648592}
+{"epoch": 2, "train_loss": 1.4674086672668738, "validation_loss": 1.4585316049199926}
+{"epoch": 3, "train_loss": 1.4659290328581378, "validation_loss": 1.45870719001198}
+{"epoch": 4, "train_loss": 1.4648521130927477, "validation_loss": 1.4572682821692424}
+{"epoch": 5, "train_loss": 1.46457957533653, "validation_loss": 1.4574174164698337}
+{"epoch": 6, "train_loss": 1.4637735876885394, "validation_loss": 1.457563708733293}
+{"epoch": 7, "train_loss": 1.4640637609130642, "validation_loss": 1.4568062037580556}
+{"epoch": 8, "train_loss": 1.4635566480056497, "validation_loss": 1.4570613322467578}
+{"epoch": 9, "train_loss": 1.463413396067602, "validation_loss": 1.456775992240621}
+{"epoch": 10, "train_loss": 1.4634011538622762, "validation_loss": 1.4574395227555534}
+Early stopping after epoch 10
+{
+  "samples": 116677,
+  "temperature": 0.75,
+  "exact_sequence_at_1": 0.2377760826898189,
+  "sequence_coverage_at_4": 0.3278109653145007,
+  "mean_correct_prefix_nodes": 1.1248318006119458,
+  "next_node_transition_accuracy": 0.20468281869663854,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5553365273361502,
+      "macro_f1": 0.3186796066617736,
+      "prefix_accuracy": 0.5553365273361502
+    },
+    {
+      "depth": 2,
+      "accuracy": 0.46341609743137036,
+      "macro_f1": 0.298848824346405,
+      "prefix_accuracy": 0.33171919058597665
+    },
+    {
+      "depth": 3,
+      "accuracy": 0.40004456748116596,
+      "macro_f1": 0.25693000063507343,
+      "prefix_accuracy": 0.2377760826898189
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.01769843242455668,
+    "exact_precision_when_triggered": 0.9341404358353511,
+    "mean_safe_prefix_when_triggered": 2.868765133171913
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h3_hist2.json

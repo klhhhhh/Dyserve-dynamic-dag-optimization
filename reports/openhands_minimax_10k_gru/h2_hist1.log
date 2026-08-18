@@ -1,0 +1,44 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.5263079519524863, "validation_loss": 1.5121148395045192}
+{"epoch": 2, "train_loss": 1.5140407434073009, "validation_loss": 1.5111139786103032}
+{"epoch": 3, "train_loss": 1.5138557725427477, "validation_loss": 1.5104412153650035}
+{"epoch": 4, "train_loss": 1.5133141384197917, "validation_loss": 1.5096887420628544}
+{"epoch": 5, "train_loss": 1.5130129241897634, "validation_loss": 1.5099450602130073}
+{"epoch": 6, "train_loss": 1.5123455395080496, "validation_loss": 1.5097701318029082}
+{"epoch": 7, "train_loss": 1.512556052120307, "validation_loss": 1.5089955506876809}
+{"epoch": 8, "train_loss": 1.512448846541294, "validation_loss": 1.5089988813356434}
+{"epoch": 9, "train_loss": 1.5123678763224824, "validation_loss": 1.5097306328030777}
+{"epoch": 10, "train_loss": 1.5122777706558985, "validation_loss": 1.509491723777576}
+Early stopping after epoch 10
+{
+  "samples": 116677,
+  "temperature": 0.7,
+  "exact_sequence_at_1": 0.35096891418188675,
+  "sequence_coverage_at_4": 0.5359325316900503,
+  "mean_correct_prefix_nodes": 0.8950264405152687,
+  "next_node_transition_accuracy": 0.1337478135877942,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5440575263333819,
+      "macro_f1": 0.25891309774063626,
+      "prefix_accuracy": 0.5440575263333819
+    },
+    {
+      "depth": 2,
+      "accuracy": 0.5014870111504409,
+      "macro_f1": 0.27601392246302475,
+      "prefix_accuracy": 0.35096891418188675
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.0,
+    "exact_precision_when_triggered": 0.0,
+    "mean_safe_prefix_when_triggered": 0.0
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h2_hist1.json

@@ -1,0 +1,44 @@
+Using device: cuda
+Loaded 10000 sequences (0 rejected) from /home/kun/dyserve/dag-predict/data/openhands_minimax_10k.jsonl
+Labels: ['STOP', 'edit', 'fetch', 'inspect', 'reason', 'shell', 'test']
+{"epoch": 1, "train_loss": 1.4608180578550973, "validation_loss": 1.4381294627738936}
+{"epoch": 2, "train_loss": 1.4425578418585063, "validation_loss": 1.4348897487122039}
+{"epoch": 3, "train_loss": 1.4412142532939096, "validation_loss": 1.4349497931334385}
+{"epoch": 4, "train_loss": 1.440180730339588, "validation_loss": 1.4330988735277328}
+{"epoch": 5, "train_loss": 1.439685945943729, "validation_loss": 1.4333220138936096}
+{"epoch": 6, "train_loss": 1.4387567823489902, "validation_loss": 1.4338169044545586}
+{"epoch": 7, "train_loss": 1.438991584849468, "validation_loss": 1.4327974990673773}
+{"epoch": 8, "train_loss": 1.4385642540117642, "validation_loss": 1.4334586786970398}
+{"epoch": 9, "train_loss": 1.4384840827066716, "validation_loss": 1.4328847249326129}
+{"epoch": 10, "train_loss": 1.4383245564238683, "validation_loss": 1.4332361297270444}
+Early stopping after epoch 10
+{
+  "samples": 116677,
+  "temperature": 0.75,
+  "exact_sequence_at_1": 0.33171919058597665,
+  "sequence_coverage_at_4": 0.5558593381729047,
+  "mean_correct_prefix_nodes": 0.8870557179221269,
+  "next_node_transition_accuracy": 0.20468281869663854,
+  "transition_samples": 57743,
+  "depth_metrics": [
+    {
+      "depth": 1,
+      "accuracy": 0.5553365273361502,
+      "macro_f1": 0.3186796066617736,
+      "prefix_accuracy": 0.5553365273361502
+    },
+    {
+      "depth": 2,
+      "accuracy": 0.46341609743137036,
+      "macro_f1": 0.298848824346405,
+      "prefix_accuracy": 0.33171919058597665
+    }
+  ],
+  "compile_gate": {
+    "confidence_threshold": 0.6,
+    "trigger_rate": 0.3944479203270567,
+    "exact_precision_when_triggered": 0.6383330074093388,
+    "mean_safe_prefix_when_triggered": 1.4174869087195532
+  }
+}
+Report saved to: /home/kun/dyserve/dag-predict/reports/openhands_minimax_10k_gru/h2_hist2.json
