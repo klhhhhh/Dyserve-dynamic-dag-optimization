@@ -249,6 +249,94 @@ For the dynamic DAG task, the current main metrics are:
 
 Complete exact matching is retained as a strict secondary metric.
 
+## Results on 10,000 Traces
+
+The larger experiment uses 10,000 workflows and produces 116,677 held-out
+prediction positions.
+
+| Split      | Workflows | Prediction positions |
+| ---------- | --------: | -------------------: |
+| Train      |     6,800 |              400,448 |
+| Validation |     1,200 |               69,620 |
+| Test       |     2,000 |              116,677 |
+
+### Topology Prediction at 10K Scale
+
+| Input             |   Accuracy |   Macro-F1 | Top-3 coverage |
+| ----------------- | ---------: | ---------: | -------------: |
+| Majority baseline |     30.62% |          - |              - |
+| Sequence          |     46.32% |     31.79% |         88.91% |
+| Graph             |     46.98% |     31.98% |         89.57% |
+| Combined          | **49.31%** | **35.51%** |     **90.34%** |
+
+Combined remains the best model. Compared with Sequence, it improves topology
+accuracy by 2.99 percentage points and Macro-F1 by 3.72 points. It also improves
+over the majority baseline by 18.69 accuracy points.
+
+Increasing the dataset from 1,000 to 10,000 traces improves Combined topology
+accuracy from 47.74% to 49.31%, Macro-F1 from 34.51% to 35.51%, and Top-3
+coverage from 89.43% to 90.34%. This supports the earlier result that sequence
+and graph features are complementary.
+
+The rare `branch` class remains a major problem. Its recall increases from zero
+to only 0.32%, which is still too low for practical branch detection. The model
+continues to confuse many branch and join examples with `branch_join`.
+
+### Node Prediction at 10K Scale
+
+| Input    | Presence Micro-F1 | Presence Macro-F1 | Exact count vector |
+| -------- | ----------------: | ----------------: | -----------------: |
+| Sequence |            61.53% |            30.25% |             21.19% |
+| Graph    |            57.85% |            25.96% |             18.89% |
+| Combined |        **63.11%** |        **32.04%** |         **21.41%** |
+
+Combined again performs best. Graph-only remains weaker than Sequence, showing
+that recent execution order is still the main signal. Graph features are useful
+mainly as additional context.
+
+For the 10K Combined model:
+
+| Node type | Precision | Recall |     F1 |  AUPRC |
+| --------- | --------: | -----: | -----: | -----: |
+| Inspect   |    83.75% | 78.83% | 81.22% | 90.90% |
+| Edit      |    71.51% | 40.88% | 52.02% | 65.63% |
+| Shell     |    75.60% | 44.83% | 56.29% | 73.08% |
+| Test      |    66.71% | 17.63% | 27.89% | 57.68% |
+| Reason    |        0% |     0% |     0% | 10.86% |
+
+The larger dataset gives the clearest improvement for shell prediction. Test
+and reason recall remain low because the count classifiers strongly prefer the
+zero class. Validation-set threshold tuning or separate presence classifiers
+are still needed.
+
+### Strict Match and Baselines at 10K Scale
+
+| Metric                      | Majority baseline | Sequence |  Graph | Combined |
+| --------------------------- | ----------------: | -------: | -----: | -------: |
+| All node counts correct     |        **27.32%** |   21.19% | 18.89% |   21.41% |
+| Counts and topology correct |        **15.12%** |   12.79% | 12.22% |   13.68% |
+
+Combined improves over the learned baselines but remains below the majority
+baseline on strict exact matching. The majority predictor succeeds by repeatedly
+choosing the most common all-inspect count pattern. Combined detects more
+non-majority events, which improves event F1 and topology prediction but creates
+more small count errors.
+
+### 1K to 10K Summary
+
+| Combined metric      | 1K traces | 10K traces |   Change |
+| -------------------- | --------: | ---------: | -------: |
+| Topology Accuracy    |    47.74% |     49.31% | +1.57 pp |
+| Topology Macro-F1    |    34.51% |     35.51% | +1.00 pp |
+| Top-3 Coverage       |    89.43% |     90.34% | +0.91 pp |
+| Presence Micro-F1    |    63.21% |     63.11% | -0.10 pp |
+| Presence Macro-F1    |    31.68% |     32.04% | +0.36 pp |
+| Complete Exact Match |    12.88% |     13.68% | +0.80 pp |
+
+The main benefit of additional data appears in topology prediction and strict
+complete matching. Overall node-presence performance is nearly saturated under
+the current features and model design.
+
 ## What the Results Show
 
 The current results suggest:
@@ -257,7 +345,10 @@ The current results suggest:
 2. Partial-DAG statistics are not strong enough by themselves.
 3. Combining sequence and graph features produces the best overall results.
 4. The improvement from DAG information is positive but still limited.
-5. Rare branches and rare node types remain difficult to predict.
+5. The same ordering remains stable at 10K scale: Combined is best, Sequence is
+   second, and Graph-only is weakest on most node-prediction metrics.
+6. More data improves topology prediction, but rare branches and rare node types
+   remain difficult.
 
 More random seeds are needed to confirm that the Combined improvement is
 stable.
@@ -320,17 +411,18 @@ remove the entire compilation cost.
 3. Separate node presence prediction from positive count prediction.
 4. Inspect and separate termination and unknown node types.
 5. Repeat experiments with multiple random seeds.
-6. Complete the 10,000-trace experiment.
-7. Export ground-truth DAG events from a workflow orchestrator.
-8. Measure prediction lead time, ILP reuse rate, hidden solver time, discarded
+6. Export ground-truth DAG events from a workflow orchestrator.
+7. Measure prediction lead time, ILP reuse rate, hidden solver time, discarded
    speculation, and end-to-end Dyserve latency.
 
 ## Summary
 
 The project now predicts a bounded description of future partial-DAG changes
-instead of only the next action in a linear sequence. On 1,000 traces, combining
-sequence and graph features gives the best topology and node-presence results.
-The graph features provide a small positive improvement, but rare events and
-exact node counts remain difficult. The current model is most suitable for
-preparing ILP templates and warm starts, not for directly committing a predicted
-runtime plan.
+instead of only the next action in a linear sequence. The 1,000- and 10,000-trace
+experiments both show that combining sequence and graph features gives the best
+topology and node-presence results. At 10K scale, Combined reaches 49.31%
+topology accuracy, 35.51% topology Macro-F1, 90.34% Top-3 coverage, and 63.11%
+Presence Micro-F1. The graph features provide a consistent but limited
+improvement. Rare branches, rare node types, and exact counts remain difficult.
+The current model is most suitable for preparing ILP templates and warm starts,
+not for directly committing a predicted runtime plan.
