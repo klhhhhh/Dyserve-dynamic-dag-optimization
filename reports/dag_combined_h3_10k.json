@@ -1,0 +1,301 @@
+{
+  "config": {
+    "dag_jsonl": "data/openhands_minimax_10k_dag.jsonl",
+    "horizon": 3,
+    "history_length": 16,
+    "feature_mode": "combined",
+    "node_types": "inspect,edit,shell,test,reason,web",
+    "min_edge_confidence": 0.6,
+    "test_ratio": 0.2,
+    "validation_ratio": 0.15,
+    "iterations": 250,
+    "depth": 6,
+    "learning_rate": 0.08,
+    "thread_count": 4,
+    "verbose": 50,
+    "seed": 42,
+    "model_out": "checkpoints/dag_combined_h3",
+    "report_out": "reports/dag_combined_h3_10k.json"
+  },
+  "node_types": [
+    "inspect",
+    "edit",
+    "shell",
+    "test",
+    "reason",
+    "web",
+    "other"
+  ],
+  "graphs": {
+    "train": 6800,
+    "validation": 1200,
+    "test": 2000
+  },
+  "samples": {
+    "train": 400448,
+    "validation": 69620,
+    "test": 116677
+  },
+  "topology": {
+    "classes_seen_in_train": [
+      "branch",
+      "branch_join",
+      "chain",
+      "independent",
+      "join"
+    ],
+    "accuracy": 0.4930534724067297,
+    "macro_f1": 0.3551410898284209,
+    "top_3_coverage": 0.903417125911705,
+    "per_class": {
+      "branch": {
+        "precision": 0.2,
+        "recall": 0.0031570639305445935,
+        "f1": 0.006216006216006216,
+        "support": 2534
+      },
+      "branch_join": {
+        "precision": 0.4881673627041547,
+        "recall": 0.7883854216142617,
+        "f1": 0.6029739416836191,
+        "support": 31581
+      },
+      "chain": {
+        "precision": 0.5353306953080836,
+        "recall": 0.22779938259231047,
+        "f1": 0.31959951626965155,
+        "support": 24943
+      },
+      "independent": {
+        "precision": 0.5087517538008602,
+        "recall": 0.6190769403005961,
+        "f1": 0.5585182940686311,
+        "support": 35729
+      },
+      "join": {
+        "precision": 0.4176557220826475,
+        "recall": 0.2202375513933303,
+        "f1": 0.2883976909041965,
+        "support": 21890
+      }
+    },
+    "confusion_matrix": {
+      "branch": {
+        "branch_join": 1560,
+        "independent": 734,
+        "join": 196,
+        "chain": 36,
+        "branch": 8
+      },
+      "branch_join": {
+        "branch_join": 24898,
+        "join": 2654,
+        "independent": 3535,
+        "chain": 480,
+        "branch": 14
+      },
+      "chain": {
+        "independent": 12310,
+        "join": 1728,
+        "branch_join": 5222,
+        "chain": 5682,
+        "branch": 1
+      },
+      "independent": {
+        "independent": 22119,
+        "chain": 3344,
+        "join": 2144,
+        "branch_join": 8111,
+        "branch": 11
+      },
+      "join": {
+        "branch_join": 11212,
+        "independent": 4779,
+        "chain": 1072,
+        "join": 4821,
+        "branch": 6
+      }
+    },
+    "calibration": {
+      "nll": 1.1423295249659997,
+      "multiclass_brier": 0.6181390291643988,
+      "ece": 0.005870848366551528
+    },
+    "majority_class_from_train": "independent",
+    "majority_accuracy": 0.3062214489573781,
+    "test_distribution": {
+      "independent": 35729,
+      "chain": 24943,
+      "join": 21890,
+      "branch_join": 31581,
+      "branch": 2534
+    }
+  },
+  "node_counts": {
+    "inspect": {
+      "count_accuracy": 0.4701097902757184,
+      "count_mae": 0.7268527644694327,
+      "presence": {
+        "precision": 0.8375349124016105,
+        "recall": 0.788341603314062,
+        "f1": 0.8121940495383263
+      },
+      "presence_auprc": 0.9089967547080595,
+      "presence_ece": 0.004449077150773558,
+      "positive_count_samples": 87868,
+      "positive_count_accuracy": 0.44929894842263396,
+      "positive_count_mae": 0.7515477762097692,
+      "majority_count_from_train": 3,
+      "majority_count_accuracy": 0.27318151820838726,
+      "test_distribution": {
+        "3": 31874,
+        "2": 24905,
+        "1": 31089,
+        "0": 28809
+      }
+    },
+    "edit": {
+      "count_accuracy": 0.7229788218757767,
+      "count_mae": 0.32827378146507025,
+      "presence": {
+        "precision": 0.71509653633453,
+        "recall": 0.4087568976513324,
+        "f1": 0.5201757326605149
+      },
+      "presence_auprc": 0.6562984393075815,
+      "presence_ece": 0.005273257401305462,
+      "positive_count_samples": 36063,
+      "positive_count_accuracy": 0.2665890247622217,
+      "positive_count_mae": 0.8929373596206638,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.6909159474446549,
+      "test_distribution": {
+        "0": 80614,
+        "1": 26154,
+        "2": 8814,
+        "3": 1095
+      }
+    },
+    "shell": {
+      "count_accuracy": 0.6254531741474326,
+      "count_mae": 0.4631932600255406,
+      "presence": {
+        "precision": 0.7560129273686002,
+        "recall": 0.4483426473258418,
+        "f1": 0.5628783465464401
+      },
+      "presence_auprc": 0.7307967888623744,
+      "presence_ece": 0.0089161329018637,
+      "positive_count_samples": 49567,
+      "positive_count_accuracy": 0.26303790828575463,
+      "positive_count_mae": 0.9382048540359513,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.5751776271244546,
+      "test_distribution": {
+        "0": 67110,
+        "1": 32614,
+        "2": 14051,
+        "3": 2902
+      }
+    },
+    "test": {
+      "count_accuracy": 0.7404115635472287,
+      "count_mae": 0.3373415497484509,
+      "presence": {
+        "precision": 0.6670737664875428,
+        "recall": 0.1763129862164692,
+        "f1": 0.27890826461051393
+      },
+      "presence_auprc": 0.5767979172961261,
+      "presence_ece": 0.007177310475979206,
+      "positive_count_samples": 30979,
+      "positive_count_accuracy": 0.11030052616288454,
+      "positive_count_mae": 1.1820265341037477,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.7344892309538298,
+      "test_distribution": {
+        "0": 85698,
+        "1": 21499,
+        "2": 7840,
+        "3": 1640
+      }
+    },
+    "reason": {
+      "count_accuracy": 0.9749907865303359,
+      "count_mae": 0.02504349614748408,
+      "presence": {
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "presence_auprc": 0.10860080237171346,
+      "presence_ece": 0.001265142002947289,
+      "positive_count_samples": 2918,
+      "positive_count_accuracy": 0.0,
+      "positive_count_mae": 1.0013708019191228,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.9749907865303359,
+      "test_distribution": {
+        "0": 113759,
+        "1": 2914,
+        "2": 4
+      }
+    },
+    "web": {
+      "count_accuracy": 1.0,
+      "count_mae": 0.0,
+      "presence": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      "presence_auprc": 0.0,
+      "presence_ece": 0.0,
+      "positive_count_samples": 0,
+      "positive_count_accuracy": 0,
+      "positive_count_mae": 0,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 1.0,
+      "test_distribution": {
+        "0": 116677
+      }
+    },
+    "other": {
+      "count_accuracy": 0.9490902234373527,
+      "count_mae": 0.05090977656264731,
+      "presence": {
+        "precision": 0.5789473684210527,
+        "recall": 0.03666666666666667,
+        "f1": 0.06896551724137931
+      },
+      "presence_auprc": 0.33918121551446045,
+      "presence_ece": 0.004773348458037447,
+      "positive_count_samples": 6000,
+      "positive_count_accuracy": 0.03666666666666667,
+      "positive_count_mae": 0.9633333333333334,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.9485759832700532,
+      "test_distribution": {
+        "0": 110677,
+        "1": 6000
+      }
+    }
+  },
+  "summary": {
+    "exact_node_count_vector": 0.21414674700240835,
+    "complete_exact_counts_and_topology": 0.13683073784893338,
+    "mean_count_accuracy": 0.7832906228305493,
+    "mean_presence_f1": 0.3204459872281678,
+    "presence_micro": {
+      "precision": 0.7921349905155574,
+      "recall": 0.5244546498277841,
+      "f1": 0.6310833175913996
+    },
+    "presence_macro_f1": 0.3204459872281678,
+    "majority_exact_node_count_vector": 0.27318151820838726,
+    "majority_complete_counts_and_topology": 0.15115232650822355
+  },
+  "constant_count_models": {
+    "web": 0
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "config": {
+    "dag_jsonl": "data/openhands_minimax_10k_dag.jsonl",
+    "horizon": 3,
+    "history_length": 16,
+    "feature_mode": "graph",
+    "node_types": "inspect,edit,shell,test,reason,web",
+    "min_edge_confidence": 0.6,
+    "test_ratio": 0.2,
+    "validation_ratio": 0.15,
+    "iterations": 250,
+    "depth": 6,
+    "learning_rate": 0.08,
+    "thread_count": 4,
+    "verbose": 50,
+    "seed": 42,
+    "model_out": "checkpoints/dag_graph_h3",
+    "report_out": "reports/dag_graph_h3_10k.json"
+  },
+  "node_types": [
+    "inspect",
+    "edit",
+    "shell",
+    "test",
+    "reason",
+    "web",
+    "other"
+  ],
+  "graphs": {
+    "train": 6800,
+    "validation": 1200,
+    "test": 2000
+  },
+  "samples": {
+    "train": 400448,
+    "validation": 69620,
+    "test": 116677
+  },
+  "topology": {
+    "classes_seen_in_train": [
+      "branch",
+      "branch_join",
+      "chain",
+      "independent",
+      "join"
+    ],
+    "accuracy": 0.4697841048364288,
+    "macro_f1": 0.3197872814036026,
+    "top_3_coverage": 0.8957035234022129,
+    "per_class": {
+      "branch": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0,
+        "support": 2534
+      },
+      "branch_join": {
+        "precision": 0.44992306377158486,
+        "recall": 0.8332858364206327,
+        "f1": 0.5843390214386428,
+        "support": 31581
+      },
+      "chain": {
+        "precision": 0.5432931893687708,
+        "recall": 0.20979834021569177,
+        "f1": 0.30270426608821405,
+        "support": 24943
+      },
+      "independent": {
+        "precision": 0.5059018632328554,
+        "recall": 0.5805927957681435,
+        "f1": 0.5406800203302361,
+        "support": 35729
+      },
+      "join": {
+        "precision": 0.3339075129190407,
+        "recall": 0.11512105984467794,
+        "f1": 0.17121309916091992,
+        "support": 21890
+      }
+    },
+    "confusion_matrix": {
+      "branch": {
+        "branch_join": 1727,
+        "join": 158,
+        "independent": 614,
+        "chain": 35
+      },
+      "branch_join": {
+        "join": 1650,
+        "branch_join": 26316,
+        "independent": 3213,
+        "chain": 402
+      },
+      "chain": {
+        "independent": 11921,
+        "join": 1481,
+        "branch_join": 6308,
+        "chain": 5233
+      },
+      "independent": {
+        "independent": 20744,
+        "join": 1738,
+        "branch_join": 10201,
+        "chain": 3042,
+        "branch": 4
+      },
+      "join": {
+        "join": 2520,
+        "branch_join": 13938,
+        "independent": 4512,
+        "chain": 920
+      }
+    },
+    "calibration": {
+      "nll": 1.1840698533120562,
+      "multiclass_brier": 0.639563011569784,
+      "ece": 0.003832066729976916
+    },
+    "majority_class_from_train": "independent",
+    "majority_accuracy": 0.3062214489573781,
+    "test_distribution": {
+      "independent": 35729,
+      "chain": 24943,
+      "join": 21890,
+      "branch_join": 31581,
+      "branch": 2534
+    }
+  },
+  "node_counts": {
+    "inspect": {
+      "count_accuracy": 0.4528827446711863,
+      "count_mae": 0.7653693530001628,
+      "presence": {
+        "precision": 0.8277916800872129,
+        "recall": 0.7604702508307917,
+        "f1": 0.7927041936057893
+      },
+      "presence_auprc": 0.8995672306717869,
+      "presence_ece": 0.006468552683706847,
+      "positive_count_samples": 87868,
+      "positive_count_accuracy": 0.4317043747439341,
+      "positive_count_mae": 0.8041152638047981,
+      "majority_count_from_train": 3,
+      "majority_count_accuracy": 0.27318151820838726,
+      "test_distribution": {
+        "3": 31874,
+        "2": 24905,
+        "1": 31089,
+        "0": 28809
+      }
+    },
+    "edit": {
+      "count_accuracy": 0.7027520419619977,
+      "count_mae": 0.3697301096188623,
+      "presence": {
+        "precision": 0.6954842543077837,
+        "recall": 0.19474253389901006,
+        "f1": 0.30428283616039514
+      },
+      "presence_auprc": 0.5698557038658971,
+      "presence_ece": 0.009807668097763381,
+      "positive_count_samples": 36063,
+      "positive_count_accuracy": 0.12356154507389845,
+      "positive_count_mae": 1.1099187532928487,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.6909159474446549,
+      "test_distribution": {
+        "0": 80614,
+        "1": 26154,
+        "2": 8814,
+        "3": 1095
+      }
+    },
+    "shell": {
+      "count_accuracy": 0.6018838331462071,
+      "count_mae": 0.4939962460467787,
+      "presence": {
+        "precision": 0.6978038457693205,
+        "recall": 0.42243831581495755,
+        "f1": 0.5262774273003745
+      },
+      "presence_auprc": 0.6777638275838936,
+      "presence_ece": 0.0075623577240924835,
+      "positive_count_samples": 49567,
+      "positive_count_accuracy": 0.24580870337119454,
+      "positive_count_mae": 0.9783928823612484,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.5751776271244546,
+      "test_distribution": {
+        "0": 67110,
+        "1": 32614,
+        "2": 14051,
+        "3": 2902
+      }
+    },
+    "test": {
+      "count_accuracy": 0.7365376209535727,
+      "count_mae": 0.34783204916136,
+      "presence": {
+        "precision": 0.6401480111008325,
+        "recall": 0.11168856322024598,
+        "f1": 0.190193491644679
+      },
+      "presence_auprc": 0.5425846064515348,
+      "presence_ece": 0.006448247100060159,
+      "positive_count_samples": 30979,
+      "positive_count_accuracy": 0.07049937054133446,
+      "positive_count_mae": 1.2472642757997352,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.7344892309538298,
+      "test_distribution": {
+        "0": 85698,
+        "1": 21499,
+        "2": 7840,
+        "3": 1640
+      }
+    },
+    "reason": {
+      "count_accuracy": 0.9749907865303359,
+      "count_mae": 0.02504349614748408,
+      "presence": {
+        "precision": 0,
+        "recall": 0.0,
+        "f1": 0
+      },
+      "presence_auprc": 0.10686397492588938,
+      "presence_ece": 0.001287385985828655,
+      "positive_count_samples": 2918,
+      "positive_count_accuracy": 0.0,
+      "positive_count_mae": 1.0013708019191228,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.9749907865303359,
+      "test_distribution": {
+        "0": 113759,
+        "1": 2914,
+        "2": 4
+      }
+    },
+    "web": {
+      "count_accuracy": 1.0,
+      "count_mae": 0.0,
+      "presence": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      "presence_auprc": 0.0,
+      "presence_ece": 0.0,
+      "positive_count_samples": 0,
+      "positive_count_accuracy": 0,
+      "positive_count_mae": 0,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 1.0,
+      "test_distribution": {
+        "0": 116677
+      }
+    },
+    "other": {
+      "count_accuracy": 0.9484817059060483,
+      "count_mae": 0.05151829409395168,
+      "presence": {
+        "precision": 0.3333333333333333,
+        "recall": 0.0018333333333333333,
+        "f1": 0.0036466103099618763
+      },
+      "presence_auprc": 0.219671840838882,
+      "presence_ece": 0.0034717708462278334,
+      "positive_count_samples": 6000,
+      "positive_count_accuracy": 0.0018333333333333333,
+      "positive_count_mae": 0.9981666666666666,
+      "majority_count_from_train": 0,
+      "majority_count_accuracy": 0.9485759832700532,
+      "test_distribution": {
+        "0": 110677,
+        "1": 6000
+      }
+    }
+  },
+  "summary": {
+    "exact_node_count_vector": 0.1888889841185495,
+    "complete_exact_counts_and_topology": 0.12219203441980853,
+    "mean_count_accuracy": 0.7739326761670497,
+    "mean_presence_f1": 0.25958636557445713,
+    "presence_micro": {
+      "precision": 0.7781570506474478,
+      "recall": 0.4604325312214438,
+      "f1": 0.5785432491314845
+    },
+    "presence_macro_f1": 0.25958636557445713,
+    "majority_exact_node_count_vector": 0.27318151820838726,
+    "majority_complete_counts_and_topology": 0.15115232650822355
+  },
+  "constant_count_models": {
+    "web": 0
+  }
+}
