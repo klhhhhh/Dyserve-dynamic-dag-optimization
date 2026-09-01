@@ -142,18 +142,32 @@ class Encoder:
 
 
 def make_dataset(graphs, encoder, horizon, min_confidence, node_types):
-    features, topologies = [], []
+    features, topologies, metadata = [], [], []
     count_labels = {node_type: [] for node_type in node_types + ["other"]}
     for graph in graphs:
-        for position in range(1, len(graph["nodes"])):
+        total_nodes = len(graph["nodes"])
+        for position in range(1, total_nodes):
             topology, counts = future_targets(
                 graph, position, horizon, min_confidence, node_types
             )
             features.append(encoder.one(graph, position))
             topologies.append(topology)
+            remaining_nodes = total_nodes - position
+            metadata.append({
+                "instance_id": graph["instance_id"],
+                "position": position,
+                "visible_nodes": position,
+                "total_nodes": total_nodes,
+                "remaining_nodes": remaining_nodes,
+                "progress_ratio": position / total_nodes,
+                "full_horizon": remaining_nodes >= horizon,
+                "last_status": graph["nodes"][position - 1].get(
+                    "status", "unknown"
+                ),
+            })
             for node_type in count_labels:
                 count_labels[node_type].append(counts[node_type])
-    return features, topologies, count_labels
+    return features, topologies, count_labels, metadata
 
 
 def macro_f1(truth, predicted):
@@ -261,6 +275,91 @@ def flattened_prediction(model, features, cast=str):
                  else value) for value in values]
 
 
+def prefix_bucket(position):
+    if position == 1:
+        return "after_1_node"
+    if position == 2:
+        return "after_2_nodes"
+    if position == 3:
+        return "after_3_nodes"
+    if position <= 7:
+        return "after_4_7_nodes"
+    if position <= 15:
+        return "after_8_15_nodes"
+    return "after_16_plus_nodes"
+
+
+def progress_bucket(ratio):
+    if ratio <= 0.2:
+        return "progress_0_20"
+    if ratio <= 0.4:
+        return "progress_20_40"
+    if ratio <= 0.6:
+        return "progress_40_60"
+    if ratio <= 0.8:
+        return "progress_60_80"
+    return "progress_80_100"
+
+
+def evaluate_subset(indices, metadata, topology_truth, topology_pred, top3,
+                    counts_truth, counts_pred):
+    """Evaluate a selected set of replay positions without retraining."""
+    if not indices:
+        return {"samples": 0, "workflows": 0}
+
+    subset_topology_truth = [topology_truth[i] for i in indices]
+    subset_topology_pred = [topology_pred[i] for i in indices]
+    flat_presence_truth, flat_presence_pred = [], []
+    type_presence_f1 = []
+
+    for node_type in counts_truth:
+        truth = [counts_truth[node_type][i] for i in indices]
+        predicted = [counts_pred[node_type][i] for i in indices]
+        flat_presence_truth.extend(int(value > 0) for value in truth)
+        flat_presence_pred.extend(int(value > 0) for value in predicted)
+        type_presence_f1.append(presence_metrics(truth, predicted)["f1"])
+
+    exact_counts = sum(
+        all(counts_truth[node_type][i] == counts_pred[node_type][i]
+            for node_type in counts_truth)
+        for i in indices
+    ) / len(indices)
+
+    return {
+        "samples": len(indices),
+        "workflows": len({metadata[i]["instance_id"] for i in indices}),
+        "topology_accuracy": sum(
+            topology_truth[i] == topology_pred[i] for i in indices
+        ) / len(indices),
+        "topology_macro_f1": macro_f1(
+            subset_topology_truth, subset_topology_pred
+        ),
+        "top_3_coverage": sum(
+            topology_truth[i] in top3[i] for i in indices
+        ) / len(indices),
+        "presence_micro": presence_metrics(
+            flat_presence_truth, flat_presence_pred
+        ),
+        "presence_macro_f1": sum(type_presence_f1) / len(type_presence_f1),
+        "exact_node_count_vector": exact_counts,
+        "topology_distribution": dict(Counter(subset_topology_truth)),
+    }
+
+
+def grouped_position_report(metadata, grouping, topology_truth, topology_pred,
+                            top3, counts_truth, counts_pred):
+    groups = defaultdict(list)
+    for index, sample in enumerate(metadata):
+        groups[grouping(sample)].append(index)
+    return {
+        name: evaluate_subset(
+            indices, metadata, topology_truth, topology_pred, top3,
+            counts_truth, counts_pred
+        )
+        for name, indices in groups.items()
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("dag_jsonl")
@@ -301,9 +400,9 @@ def main():
                                    args.min_edge_confidence, node_types)
     test_data = make_dataset(test, encoder, args.horizon,
                              args.min_edge_confidence, node_types)
-    x_train, topology_train, counts_train = train_data
-    x_val, topology_val, counts_val = validation_data
-    x_test, topology_test, counts_test = test_data
+    x_train, topology_train, counts_train, train_metadata = train_data
+    x_val, topology_val, counts_val, val_metadata = validation_data
+    x_test, topology_test, counts_test, test_metadata = test_data
 
     model_dir = Path(args.model_out)
     report_path = Path(args.report_out)
@@ -408,6 +507,22 @@ def main():
         all(counts_test[node_type][i] == majority_count_vector[node_type]
             for node_type in count_types) for i in range(len(x_test))
     ]
+    by_visible_prefix = grouped_position_report(
+        test_metadata,
+        lambda sample: prefix_bucket(sample["position"]),
+        topology_test, topology_pred, top3, counts_test, count_predictions,
+    )
+    by_progress_ratio = grouped_position_report(
+        test_metadata,
+        lambda sample: progress_bucket(sample["progress_ratio"]),
+        topology_test, topology_pred, top3, counts_test, count_predictions,
+    )
+    full_horizon_indices = [
+        i for i, sample in enumerate(test_metadata) if sample["full_horizon"]
+    ]
+    truncated_tail_indices = [
+        i for i, sample in enumerate(test_metadata) if not sample["full_horizon"]
+    ]
     report = {
         "config": vars(args),
         "node_types": node_types + ["other"],
@@ -445,6 +560,20 @@ def main():
                 majority_exact_counts[i] and topology_test[i] == topology_majority
                 for i in range(len(x_test))
             ) / len(x_test),
+        },
+        "execution_position_analysis": {
+            "by_visible_prefix": by_visible_prefix,
+            "by_progress_ratio": by_progress_ratio,
+        },
+        "horizon_analysis": {
+            "full_horizon_only": evaluate_subset(
+                full_horizon_indices, test_metadata, topology_test,
+                topology_pred, top3, counts_test, count_predictions,
+            ),
+            "truncated_workflow_tail": evaluate_subset(
+                truncated_tail_indices, test_metadata, topology_test,
+                topology_pred, top3, counts_test, count_predictions,
+            ),
         },
         "constant_count_models": constant_counts,
     }
