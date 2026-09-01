@@ -14,8 +14,8 @@ python3 predict/dag-trace-predict/train_dag_delta.py \
   --depth 6 \
   --thread-count 4 \
   --verbose 50 \
-  --model-out checkpoints/dag_sequence_h3 \
-  --report-out reports/dag_sequence_h3_10k.json
+  --model-out checkpoints/dag_sequence_h3_position \
+  --report-out reports/dag_sequence_h3_position_10k.json
 
 python3 predict/dag-trace-predict/train_dag_delta.py \
   data/openhands_minimax_10k_dag.jsonl \
@@ -27,8 +27,8 @@ python3 predict/dag-trace-predict/train_dag_delta.py \
   --depth 6 \
   --thread-count 4 \
   --verbose 50 \
-  --model-out checkpoints/dag_graph_h3 \
-  --report-out reports/dag_graph_h3_10k.json
+  --model-out checkpoints/dag_graph_h3_position \
+  --report-out reports/dag_graph_h3_position_10k.json
 
 python3 predict/dag-trace-predict/train_dag_delta.py \
   data/openhands_minimax_10k_dag.jsonl \
@@ -40,5 +40,5 @@ python3 predict/dag-trace-predict/train_dag_delta.py \
   --depth 6 \
   --thread-count 4 \
   --verbose 50 \
-  --model-out checkpoints/dag_combined_h3 \
-  --report-out reports/dag_combined_h3_10k.json
+  --model-out checkpoints/dag_combined_h3_position \
+  --report-out reports/dag_combined_h3_position_10k.json
