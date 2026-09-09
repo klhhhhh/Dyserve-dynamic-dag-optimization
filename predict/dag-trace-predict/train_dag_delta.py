@@ -294,6 +294,46 @@ def flattened_prediction(model, features, cast=str):
                  else value) for value in values]
 
 
+def top_k_coverage(truth, rankings, max_k=3):
+    """Return coverage@1..K for one ranked candidate list per sample."""
+    if not truth:
+        return {f"top_{k}_coverage": 0.0 for k in range(1, max_k + 1)}
+    return {
+        f"top_{k}_coverage": sum(
+            label in ranking[:k] for label, ranking in zip(truth, rankings)
+        ) / len(truth)
+        for k in range(1, max_k + 1)
+    }
+
+
+def frequency_ranking(labels, fallback_order):
+    """Rank classes by training frequency with deterministic tie breaking."""
+    counts = Counter(labels)
+    tie_order = {label: i for i, label in enumerate(fallback_order)}
+    return sorted(
+        fallback_order,
+        key=lambda label: (-counts[label], tie_order[label]),
+    )
+
+
+def conditioned_frequency_baseline(train_labels, train_metadata, test_metadata,
+                                   bucket_fn, global_ranking, max_k=3):
+    """Build bucket-specific rankings from train only and evaluate on test."""
+    bucket_labels = defaultdict(list)
+    for label, sample in zip(train_labels, train_metadata):
+        bucket_labels[bucket_fn(sample)].append(label)
+
+    rankings_by_bucket = {
+        bucket: frequency_ranking(labels, global_ranking)
+        for bucket, labels in bucket_labels.items()
+    }
+    test_rankings = [
+        rankings_by_bucket.get(bucket_fn(sample), global_ranking)
+        for sample in test_metadata
+    ]
+    return rankings_by_bucket, test_rankings
+
+
 def prefix_bucket(position):
     if position == 1:
         return "after_1_node"
@@ -439,10 +479,11 @@ def main():
     topology_pred = flattened_prediction(topology_model, x_test, str)
     topology_probabilities = topology_model.predict_proba(x_test)
     topology_classes = [str(value) for value in topology_model.classes_]
-    top3 = []
+    topology_rankings = []
     for row in topology_probabilities:
-        order = sorted(range(len(row)), key=lambda i: row[i], reverse=True)[:3]
-        top3.append([topology_classes[i] for i in order])
+        order = sorted(range(len(row)), key=lambda i: row[i], reverse=True)
+        topology_rankings.append([topology_classes[i] for i in order])
+    top3 = [ranking[:3] for ranking in topology_rankings]
 
     count_predictions = {}
     count_presence_scores = {}
@@ -542,6 +583,34 @@ def main():
     truncated_tail_indices = [
         i for i, sample in enumerate(test_metadata) if not sample["full_horizon"]
     ]
+    active_topology_classes = sorted(set(topology_train))
+    global_ranking = frequency_ranking(
+        topology_train, active_topology_classes
+    )
+    global_test_rankings = [global_ranking] * len(topology_test)
+    position_candidates, position_test_rankings = conditioned_frequency_baseline(
+        topology_train,
+        train_metadata,
+        test_metadata,
+        lambda sample: prefix_bucket(sample["position"]),
+        global_ranking,
+    )
+    progress_candidates, progress_test_rankings = conditioned_frequency_baseline(
+        topology_train,
+        train_metadata,
+        test_metadata,
+        lambda sample: progress_bucket(sample["progress_ratio"]),
+        global_ranking,
+    )
+    random_expected = {
+        f"top_{k}_coverage": min(k, len(active_topology_classes))
+        / len(active_topology_classes)
+        for k in range(1, 4)
+    }
+    model_top_k = top_k_coverage(topology_test, topology_rankings)
+    global_top_k = top_k_coverage(topology_test, global_test_rankings)
+    position_top_k = top_k_coverage(topology_test, position_test_rankings)
+    progress_top_k = top_k_coverage(topology_test, progress_test_rankings)
     report = {
         "config": vars(args),
         "node_types": node_types + ["other"],
@@ -562,6 +631,48 @@ def main():
             "majority_accuracy": sum(y == topology_majority for y in topology_test)
             / len(topology_test),
             "test_distribution": dict(Counter(topology_test)),
+        },
+        "topology_top_k_baselines": {
+            "note": (
+                "All frequency candidates are selected from the training split "
+                "only. Progress-conditioned results are diagnostic/oracle-style "
+                "when final workflow length is unavailable at runtime."
+            ),
+            "active_classes": active_topology_classes,
+            "number_of_active_classes": len(active_topology_classes),
+            "model": {
+                **model_top_k,
+                "top_3_absolute_lift_vs_global": (
+                    model_top_k["top_3_coverage"]
+                    - global_top_k["top_3_coverage"]
+                ),
+                "top_3_absolute_lift_vs_position_conditioned": (
+                    model_top_k["top_3_coverage"]
+                    - position_top_k["top_3_coverage"]
+                ),
+                "top_3_absolute_lift_vs_progress_conditioned": (
+                    model_top_k["top_3_coverage"]
+                    - progress_top_k["top_3_coverage"]
+                ),
+            },
+            "random_uniform_expected": random_expected,
+            "global_frequency": {
+                "ranked_candidates": global_ranking,
+                **global_top_k,
+            },
+            "position_conditioned_frequency": {
+                "runtime_available": True,
+                "condition": "visible node-count bucket",
+                "ranked_candidates_by_bucket": position_candidates,
+                **position_top_k,
+            },
+            "progress_conditioned_frequency": {
+                "runtime_available": False,
+                "oracle_diagnostic": True,
+                "condition": "visible_nodes / final_total_nodes",
+                "ranked_candidates_by_bucket": progress_candidates,
+                **progress_top_k,
+            },
         },
         "node_counts": count_reports,
         "summary": {
@@ -602,6 +713,7 @@ def main():
     }, indent=2) + "\n")
     report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps({"topology": report["topology"],
+                      "topology_top_k_baselines": report["topology_top_k_baselines"],
                       "summary": report["summary"]}, indent=2))
 
 
