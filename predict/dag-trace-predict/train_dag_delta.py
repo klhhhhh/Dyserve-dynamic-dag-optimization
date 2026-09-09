@@ -120,25 +120,44 @@ class Encoder:
     @property
     def categorical_indices(self):
         if self.feature_mode == "sequence":
-            return list(range(self.history_length + 2))
+            # language + history + tool + status
+            return list(range(self.history_length + 3))
+
         if self.feature_mode == "graph":
+            # language
             return [0]
+
+        # language + history + tool + status
         return list(range(self.history_length + 3))
 
     def one(self, graph, position):
         nodes, edges = visible_graph(graph, position, self.min_confidence)
-        recent = [node["semantic_type"] for node in nodes[-self.history_length:]]
+
+        static = [
+            str(graph.get("language", "unknown")),
+        ]
+
+        recent = [
+            node["semantic_type"]
+            for node in nodes[-self.history_length:]
+        ]
         recent = [PAD] * (self.history_length - len(recent)) + recent
+
         last = nodes[-1]
-        sequence = recent + [str(last.get("tool_name", "unknown")),
-                             str(last.get("status", "unknown"))]
-        graph_features = [str(graph.get("language", "unknown"))]
-        graph_features += graph_statistics(nodes, edges)
+        sequence = recent + [
+            str(last.get("tool_name", "unknown")),
+            str(last.get("status", "unknown")),
+        ]
+
+        graph_features = graph_statistics(nodes, edges)
+
         if self.feature_mode == "sequence":
-            return sequence
+            return static + sequence
+
         if self.feature_mode == "graph":
-            return graph_features
-        return sequence + graph_features
+            return static + graph_features
+
+        return static + sequence + graph_features
 
 
 def make_dataset(graphs, encoder, horizon, min_confidence, node_types):
