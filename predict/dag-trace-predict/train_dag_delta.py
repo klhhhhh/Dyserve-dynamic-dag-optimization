@@ -440,6 +440,11 @@ def main():
     parser.add_argument("--model-out", required=True,
                         help="Output directory for topology and count models")
     parser.add_argument("--report-out", required=True)
+    parser.add_argument(
+        "--predictions-out",
+        help=("Optional JSONL containing one held-out prediction per execution "
+              "position. This is the input to evaluate_ilp_proxy.py."),
+    )
     args = parser.parse_args()
     node_types = [value.strip() for value in args.node_types.split(",") if value.strip()]
     if not node_types:
@@ -707,6 +712,40 @@ def main():
         },
         "constant_count_models": constant_counts,
     }
+    if args.predictions_out:
+        predictions_path = Path(args.predictions_out)
+        predictions_path.parent.mkdir(parents=True, exist_ok=True)
+        with predictions_path.open("w", encoding="utf-8") as stream:
+            for i, sample in enumerate(test_metadata):
+                row = {
+                    **sample,
+                    "prediction_horizon": args.horizon,
+                    "feature_mode": args.feature_mode,
+                    "true_topology": topology_test[i],
+                    "predicted_topology": topology_pred[i],
+                    "topology_ranking": topology_rankings[i],
+                    "topology_probabilities": {
+                        label: float(topology_probabilities[i][j])
+                        for j, label in enumerate(topology_classes)
+                    },
+                    "true_counts": {
+                        node_type: int(counts_test[node_type][i])
+                        for node_type in count_types
+                    },
+                    "predicted_counts": {
+                        node_type: int(count_predictions[node_type][i])
+                        for node_type in count_types
+                    },
+                    "presence_scores": {
+                        node_type: float(count_presence_scores[node_type][i])
+                        for node_type in count_types
+                    },
+                }
+                stream.write(json.dumps(row, ensure_ascii=False) + "\n")
+        report["artifacts"] = {
+            "per_position_predictions": str(predictions_path),
+            "format": "JSONL",
+        }
     (model_dir / "manifest.json").write_text(json.dumps({
         "config": vars(args), "node_types": node_types + ["other"],
         "constant_count_models": constant_counts,
